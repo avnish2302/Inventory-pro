@@ -3,9 +3,7 @@ import prisma from "../lib/prisma.js";
 
 const router = express.Router();
 
-/**
- * GET /api/sales
- */
+//      GET /api/sales
 router.get("/", async (req, res) => {
   const sales = await prisma.sale.findMany({
     include: { product: true }
@@ -13,14 +11,12 @@ router.get("/", async (req, res) => {
   res.json(sales);
 });
 
-/**
- * POST /api/sales
- * Create sale + reduce product stock
- */
+//      POST /api/sales       Create sale + reduce product stock
+
 router.post("/", async (req, res) => {
   const { productId, quantity } = req.body;
 
-  // 1️⃣ Get product
+  //    Get product
   const product = await prisma.product.findUnique({
     where: { id: productId }
   });
@@ -35,7 +31,7 @@ router.post("/", async (req, res) => {
 
   const total = product.price * quantity;
 
-  // 2️⃣ Transaction: sale + stock update
+  //     Transaction: sale + stock update
   const sale = await prisma.$transaction(async (tx) => {
     const newSale = await tx.sale.create({
       data: {

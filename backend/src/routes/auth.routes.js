@@ -5,7 +5,7 @@ import prisma from "../lib/prisma.js";
 
 const router = express.Router();
 
-/* ================= REGISTER ================= */
+
 router.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -31,7 +31,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-/* ================= LOGIN ================= */
+
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -48,8 +48,6 @@ router.post("/login", async (req, res) => {
       }
     });
 
-    console.log("LOGIN EMAIL:", emailClean);
-    console.log("USER FOUND:", user);
 
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
@@ -83,5 +81,5 @@ router.post("/login", async (req, res) => {
   }
 });
 
-/* ================= EXPORT ================= */
+
 export default router;

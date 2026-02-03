@@ -3,7 +3,7 @@ import prisma from "../lib/prisma.js";
 
 const router = express.Router();
 
-//GET/api/suppliers
+//        GET/api/suppliers
 router.get("/", async (req, res) => {
   const suppliers = await prisma.supplier.findMany({
     include: { products: true },
@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
   res.json(suppliers);
 });
 
-//POST /api/suppliers
+//        POST /api/suppliers
 router.post("/", async (req, res) => {
   const { name, email } = req.body;
 
@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
   res.status(201).json(supplier);
 });
 
-//PUT /api/suppliers/:id
+//        PUT /api/suppliers/:id
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { name, email } = req.body;
@@ -35,7 +35,7 @@ router.put("/:id", async (req, res) => {
   res.json(supplier);
 });
 
-//DELETE /api/suppliers/:id
+//        DELETE /api/suppliers/:id
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
